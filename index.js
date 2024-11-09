@@ -47,10 +47,9 @@ function draw() {
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 let gameWord = "hello";
-let 
 let guessedLetters = []; // this will store letters guessed
 let incorrectLetters = []; //this will store INCORRECT letters guessed
-const missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
+let missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
 
 startGame();
 
@@ -81,22 +80,20 @@ function drawWordLines() {
       textSize(32); // Font size for letters
       textAlign(CENTER, CENTER);
       text(guessedLetters[i], x + lineLength / 2, startY - 20); // Display letter above line
+    
     }
   }
 }
 
 function keyPressed() {
   const keylower = key.toLowerCase();
-  if (alphabet.includes(keylower.toLowerCase())) {
-    //this compares the key against my alphabet array in lower case. Only letters allowed
-    if (gameWordArray.includes(keylower)) {
-      // if the key is included in gameWordArray of letters then ...
-      gameWordArray.forEach((letter, index) => {  
-        /// then look at each (forEach) to take that key/etter and index it
-        //gameWordArray.forEach(function(letter,index) {  //not using arrow
+  if (alphabet.includes(keylower.toLowerCase())) {        //this compares the key against my alphabet array in lower case. Only letters allowed
+    if (gameWordArray.includes(keylower)) {         // if the key is included in gameWordArray of letters then ...
+      gameWordArray.forEach((letter, index) => {           /// then look at each (forEach) to take that key/etter and index it
+        // alternatieve--- gameWordArray.forEach(function(letter,index)    //not using arrow
         if (letter === keylower) {
           // if the letter is there, put it in the guessedLetters array based on index
-          guessedLetters[index] = keylower; //shorter line for fun.....    letter === key && (guessedLetters[index] = key);
+          guessedLetters[index] = keylower; //shorter line for fun.letter === key && (guessedLetters[index] = key);
         }
       });
     } else if (!incorrectLetters.includes(keylower)) {
@@ -108,8 +105,37 @@ function keyPressed() {
 
 function hangMan() {
   strokeWeight(5);
-  circle(490, 350, 65); //head
+  if (missedGuesses <= 5) {
+    circle(490, 350, 65); //head
+  }
+  if (missedGuesses <= 4) {
+    line(490, 380, 490, 500);
+  }
+  if (missedGuesses <= 3) {
+    line(490, 420, 450, 470); // Draw left arm
+  }
+  if (missedGuesses <= 2) {
+    line(490, 420, 530, 470); // Draw right arm
+  }
+  if (missedGuesses <= 1) {
+    line(490, 500, 460, 580); // Draw left leg
+  }
+  if (missedGuesses <= 0) {
+    line(490, 500, 520, 580); // Draw right leg
+  }
 }
+
+
+
+function win () {
+if (guessedLetters.toString() === gameWordArray.toString()) {
+  return window.alert("You Win!");
+}
+}
+
+
+/*
+function lose
 
 /*
 const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
