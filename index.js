@@ -1,4 +1,3 @@
-
 /*
 Game setup
 user gets 6 attemps - head, body, arm, arm, leg, leg
@@ -32,91 +31,85 @@ create a box/popup for if same letter is guessed again
 
 */
 
-
 let bg;
 function setup() {
   let gameArea = document.getElementById("drawingCanvas");
-   let canvas = createCanvas(1122,787);
+  let canvas = createCanvas(1122, 787);
   canvas.parent("drawingCanvas");
-  bg = loadImage('gamebackgroundflip.png')
-
+  bg = loadImage("gamebackgroundflip.png");
 }
- 
+
 function draw() {
-    background(bg);
-    drawWordLines();
-    hangMan();
+  background(bg);
+  drawWordLines();
+  hangMan();
 }
-
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-let gameWord = "hello";  
-let guessedLetters = [];   // this will store letters guessed
-let incorrectLetters = [] //this will store INCORRECT letters guessed
-const missedGuesses =  6 // head,body, arm, arm,leg, leg= 6
+let gameWord = "hello";
+let 
+let guessedLetters = []; // this will store letters guessed
+let incorrectLetters = []; //this will store INCORRECT letters guessed
+const missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
 
 startGame();
 
-function startGame (){
-    gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
-    guessedLetters = gameWordArray.map(() => "_");  //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']  
-    //this array will be used to match the letters and store them
+function startGame() {
+  gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
+  guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
+  //this array will be used to match the letters and store them
 }
 
-
-
-
-
 function drawWordLines() {
-  const startX = 400;           // Starting X position for the lines
-  const startY = 100;           // Y position for the lines
-  const lineLength = 60;        // Length of each underscore line
-  const lineGap = 35;           // Gap between each line
+  const startX = 400; // Starting X position for the lines
+  const startY = 100; // Y position for the lines
+  const lineLength = 60; // Length of each underscore line
+  const lineGap = 35; // Gap between each line
 
   for (let i = 0; i < guessedLetters.length; i++) {
     let x = startX + i * (lineLength + lineGap); // Calculate X position for each letter line
 
     // Draw the underscore line for each letter
-    stroke(0);                // Line color (black)
-    strokeWeight(3);          // Line thickness
+    stroke(0); // Line color (black)
+    strokeWeight(3); // Line thickness
     line(x, startY, x + lineLength, startY); // Draw the line for the letter
-    
+
     // Draw guessed letter if it has been guessed correctly
     if (guessedLetters[i] !== "_") {
-      noStroke();              // Disable line stroke for text
-      fill(0);                 // Text color (black)
-      textSize(32);            // Font size for letters
+      noStroke(); // Disable line stroke for text
+      fill(0); // Text color (black)
+      textSize(32); // Font size for letters
       textAlign(CENTER, CENTER);
       text(guessedLetters[i], x + lineLength / 2, startY - 20); // Display letter above line
     }
   }
 }
 
-function keyPressed(){
-  const letterGuess = alphabet;
-  console.log(key)
-  if (letterGuess.includes(key.toLowerCase())) {
-    return letterGuess;
-  } else {
-    return incorrectLetters;
+function keyPressed() {
+  const keylower = key.toLowerCase();
+  if (alphabet.includes(keylower.toLowerCase())) {
+    //this compares the key against my alphabet array in lower case. Only letters allowed
+    if (gameWordArray.includes(keylower)) {
+      // if the key is included in gameWordArray of letters then ...
+      gameWordArray.forEach((letter, index) => {  
+        /// then look at each (forEach) to take that key/etter and index it
+        //gameWordArray.forEach(function(letter,index) {  //not using arrow
+        if (letter === keylower) {
+          // if the letter is there, put it in the guessedLetters array based on index
+          guessedLetters[index] = keylower; //shorter line for fun.....    letter === key && (guessedLetters[index] = key);
+        }
+      });
+    } else if (!incorrectLetters.includes(keylower)) {
+      incorrectLetters.push(keylower); //add letter guessed to my array and keep them
+      missedGuesses -= 1; //decrease attempt by 1 try
+    }
   }
 }
 
-
-
-
 function hangMan() {
-   strokeWeight(5);
-   circle(490, 350, 65);  //head
-   
+  strokeWeight(5);
+  circle(490, 350, 65); //head
 }
-
-
-
-
-
-
-
 
 /*
 const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
