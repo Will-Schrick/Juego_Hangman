@@ -19,8 +19,8 @@
     </header>
     <nav class="banner">
       <ul>
-        <li><a class="links" href="#">Play</a></li>
-        <li><a class="links"href="#">Restart</a></li>
+        <li><button id = "Play">Play</button></li>
+        <li><button id = "Restart">Restart</a></li>
 
       </ul>
     </nav>
@@ -33,11 +33,15 @@
     <a href="./gamebackgroundflip.png"></a>
    
     <div class = "winbutton"> 
-      <div> 
-        <h2> "You Win!  Great Job!</h2>
-        <p>  Do you want to play again?</p>
-        <button id = "Yes" > Yes! </button>
-        <button id = "No" > No Thanks! </button>
+       <img class= "popupbkgrnd" src="./saloon image darker.jpg" alt="wildwestimage">
+        <div class = "winnercontent"> 
+          <div>
+          <h1> <span>You Win!  Great Job!</span></h1>
+          <p>Do you want to play again?</p>
+          </div>
+        <button class= "popupbuttons" id = "yes" onclick = "startgame()">Yes!</button>
+        <button class= "popupbuttons" id = "no" onclick = "closePopup()">No Thanks!</button>
+       
       </div>
     </div>
     <!-- <div class = "loosebutton"> -->

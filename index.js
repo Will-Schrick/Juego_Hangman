@@ -54,6 +54,11 @@ let missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
 startGame();
 
 function startGame() {
+  document.getElementsByClassName("winbutton")[0].style.display = "none";  //this is at the top to close the window from prior game
+  //if the window is still open
+  //the [0] is critical - it's like an array, we are accessing the first 
+  //item in the classcolection of "winbutton"  There is only one (0)
+  //probably better to use "querySelector("winbutton)
   gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
   guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
   //this array will be used to match the letters and store them
@@ -96,6 +101,7 @@ function keyPressed() {
           guessedLetters[index] = keylower; //shorter line for fun.letter === key && (guessedLetters[index] = key);
         }
       });
+      win();
     } else if (!incorrectLetters.includes(keylower)) {
       incorrectLetters.push(keylower); //add letter guessed to my array and keep them
       missedGuesses -= 1; //decrease attempt by 1 try
@@ -129,13 +135,19 @@ function hangMan() {
 
 function win () {
 if (guessedLetters.toString() === gameWordArray.toString()) {
-  return window.alert("You Win!");
+  document.getElementsByClassName("winbutton")[0].style.display = "flex"; 
+ 
 }
 }
 
 
-/*
-function lose
+function closePopup() {
+  document.getElementsByClassName("winbutton")[0].style.display = "none"; // Hide the popup
+}
+//function lose
+
+
+
 
 /*
 const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
