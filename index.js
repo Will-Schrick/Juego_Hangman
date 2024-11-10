@@ -46,26 +46,33 @@ function draw() {
 }
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-let gameWord = "hello";
+const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
+let randAnimals = animals[Math.floor(Math.random() * animals.length)];
+let gameWord = randAnimals;
 let guessedLetters = []; // this will store letters guessed
-let incorrectLetters = []; //this will store INCORRECT letters guessed
+let incorrectLetters = []; //this will store INCOdogRRECT letters guessed
 let missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
 
 startGame();
 
 function startGame() {
-  document.getElementsByClassName("winbutton")[0].style.display = "none";  //this is at the top to close the window from prior game
+  document.getElementsByClassName("winbutton")[0].style.display = "none";  
+  //this is at the top to close the window from prior game
   //if the window is still open
   //the [0] is critical - it's like an array, we are accessing the first 
   //item in the classcolection of "winbutton"  There is only one (0)
   //probably better to use "querySelector("winbutton)
+  guessedLetters = []; // this will store letters guessed
+  incorrectLetters = []; //this will store INCORRECT letters guessed
+  missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
+  gameWord = animals[Math.floor(Math.random() * animals.length)];
   gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
   guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
   //this array will be used to match the letters and store them
 }
 
 function drawWordLines() {
-  const startX = 400; // Starting X position for the lines
+  const startX = 200; // Starting X position for the lines
   const startY = 100; // Y position for the lines
   const lineLength = 60; // Length of each underscore line
   const lineGap = 35; // Gap between each line
@@ -101,50 +108,65 @@ function keyPressed() {
           guessedLetters[index] = keylower; //shorter line for fun.letter === key && (guessedLetters[index] = key);
         }
       });
-      win();
+      console.log("Correct guess:", keylower);
+      youWin();
+      
     } else if (!incorrectLetters.includes(keylower)) {
       incorrectLetters.push(keylower); //add letter guessed to my array and keep them
       missedGuesses -= 1; //decrease attempt by 1 try
+      console.log("Incorrect guess:", keylower, "Missed guesses:", missedGuesses);
+      if (missedGuesses === 0) {
+      youLose();
+        
+       
+      }
     }
   }
 }
 
 function hangMan() {
   strokeWeight(5);
+  fill(0);
+  stroke(0);
+  console.log("Drawing hangman with missedGuesses:", missedGuesses);
   if (missedGuesses <= 5) {
     circle(490, 350, 65); //head
   }
-  if (missedGuesses <= 4) {
+  if (missedGuesses <= 4) {  //body
     line(490, 380, 490, 500);
   }
   if (missedGuesses <= 3) {
-    line(490, 420, 450, 470); // Draw left arm
+    line(490, 420, 450, 470); // left arm
   }
   if (missedGuesses <= 2) {
-    line(490, 420, 530, 470); // Draw right arm
+    line(490, 420, 530, 470); // right arm
   }
   if (missedGuesses <= 1) {
-    line(490, 500, 460, 580); // Draw left leg
+    line(490, 500, 460, 580); // left leg
   }
   if (missedGuesses <= 0) {
-    line(490, 500, 520, 580); // Draw right leg
+    line(490, 500, 520, 580); // right leg
+   }
+}
+
+function youWin () {
+if (guessedLetters.toString() === gameWordArray.toString()) {
+  document.getElementsByClassName("winbutton")[0].style.display = "flex"; 
+  
   }
 }
 
-
-
-function win () {
-if (guessedLetters.toString() === gameWordArray.toString()) {
-  document.getElementsByClassName("winbutton")[0].style.display = "flex"; 
- 
+function youLose() {
+  //console.log("you loose test");
+  //console.log(document.getElementById("popuptext"));
+  document.getElementById("popuptext").innerText = "You Lose! Try Again?";
+  document.getElementsByClassName("winbutton")[0].style.display = "flex";
 }
-}
-
 
 function closePopup() {
   document.getElementsByClassName("winbutton")[0].style.display = "none"; // Hide the popup
+ 
 }
-//function lose
 
 
 
