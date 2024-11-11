@@ -71,6 +71,14 @@ function startGame() {
   //this array will be used to match the letters and store them
 }
 
+function animalsCat() {
+  gameWord = animals[Math.floor(Math.random() * animals.length)];
+  gameWordArray = gameWord.split("");
+  guessedLetters = gameWordArray.map(() => "_");
+  }
+
+
+
 function drawWordLines() {
   const startX = 200; // Starting X position for the lines
   const startY = 100; // Y position for the lines
