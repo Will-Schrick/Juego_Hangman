@@ -36,7 +36,7 @@ function setup() {
   let gameArea = document.getElementById("drawingCanvas");
   let canvas = createCanvas(1122, 787);
   canvas.parent("drawingCanvas");
-  bg = loadImage("./vecteezy_gallows/gamebackgroundflip.png");
+  bg = loadImage("./vecteezy_gallows/gamebackgroundflipnogallow.jpg");
 }
 
 function draw() {
@@ -54,7 +54,7 @@ let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
 let gameWord = "";
 let guessedLetters = []; // this will store letters guessed
 let incorrectLetters = []; //this will store INCOdogRRECT letters guessed
-let missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
+let missedGuesses = 9; // head,body, arm, arm,leg, leg= 6
 
 function startGame() {
   document.getElementsByClassName("winbutton")[0].style.display = "none";  
@@ -65,7 +65,7 @@ function startGame() {
   //probably better to use "querySelector("winbutton)
   guessedLetters = []; // this will store letters guessed
   incorrectLetters = []; //this will store INCORRECT letters guessed
-  missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
+  missedGuesses = 9; // head,body, arm, arm,leg, leg= 6
    //gameWord = animals[Math.floor(Math.random() * animals.length)];
   gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
   guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
@@ -94,9 +94,6 @@ document.getElementById('tapasbutton').addEventListener("click", function()
   {
   categorySelect('tapas');
   });
-
-
-
 
 function drawWordLines() {
   const startX = 200; // Starting X position for the lines
@@ -151,28 +148,43 @@ function keyPressed() {
   }
 }
 
+function preload() {
+  verticalPost = loadImage("./vecteezy_gallows/verticalpostfinal.png");
+  horizontalPost = loadImage("./vecteezy_gallows/horizontalpostfinal.png");
+  rope = loadImage("./vecteezy_gallows/ropefinal.png");
+}
+
 function hangMan() {
   strokeWeight(5);
   fill(0);
   stroke(0);
   console.log("Drawing hangman with missedGuesses:", missedGuesses);
-  if (missedGuesses <= 5) {
-    circle(490, 350, 65); //head
+  if (missedGuesses <= 8) { //vertical post
+    image(verticalPost, 258, 157); 
   }
-  if (missedGuesses <= 4) {  //body
+  if (missedGuesses <= 7 ) {  //horizontal post
+    image(horizontalPost, 260, 157);
+  }
+  if (missedGuesses <= 6 ) {  //rope
+     image(rope, 455, 157); 
+  }
+  if (missedGuesses <= 5) {  //head
+    circle(490, 350, 65); 
+  }
+  if (missedGuesses <= 4) { //body
     line(490, 380, 490, 500);
   }
-  if (missedGuesses <= 3) {
-    line(490, 420, 450, 470); // left arm
+  if (missedGuesses <= 3) { // left arm
+    line(490, 420, 450, 470); 
   }
-  if (missedGuesses <= 2) {
-    line(490, 420, 530, 470); // right arm
+  if (missedGuesses <= 2) { // right arm
+    line(490, 420, 530, 470); 
   }
-  if (missedGuesses <= 1) {
-    line(490, 500, 460, 580); // left leg
+  if (missedGuesses <= 1) { // left leg
+    line(490, 500, 460, 580); 
   }
-  if (missedGuesses <= 0) {
-    line(490, 500, 520, 580); // right leg
+  if (missedGuesses <= 0) { // right leg
+    line(490, 500, 520, 580); 
    }
 }
 
@@ -196,10 +208,3 @@ function closePopup() {
 }
 
 
-
-
-/*
-const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
-
-animals[Math.floor(Math.random() * animals.length)];
-*/
