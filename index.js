@@ -49,8 +49,8 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 let category;
 const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
 let randAnimals = animals[Math.floor(Math.random() * animals.length)];
-//const tapas = ["patatas", "chorizo", "tortilla", "gambas", "calamares", "pulpo"];
-//let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
+const tapas = ["patatas", "chorizo", "tortilla", "gambas", "calamares", "pulpo"];
+let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
 let gameWord = "";
 let guessedLetters = []; // this will store letters guessed
 let incorrectLetters = []; //this will store INCOdogRRECT letters guessed
@@ -72,7 +72,7 @@ function startGame() {
   //this array will be used to match the letters and store them
 }
   function categorySelect(category) {
-     if (category === 'animals') {
+     if (category === animals) {
       gameWord = randAnimals;
       console.log("Random word from animals:", gameWord);
       } 
@@ -87,24 +87,16 @@ function startGame() {
 
 document.getElementById('animalsbutton').addEventListener("click", function() 
   {
-  categorySelect('animals');
-  });
-/*
-document.getElementById('animalsbutton').addEventListener("click", function() 
-  {
   categorySelect(animals);
   });
-  */ 
+
+document.getElementById('tapasbutton').addEventListener("click", function() 
+  {
+  categorySelect('tapas');
+  });
 
 
 
-/*
-function animalsCat() {
-  gameWord = animals[Math.floor(Math.random() * animals.length)];
-  return gameWord;
-  }
-
-*/
 
 function drawWordLines() {
   const startX = 200; // Starting X position for the lines
