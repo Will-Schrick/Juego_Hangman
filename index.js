@@ -36,7 +36,7 @@ function setup() {
   let gameArea = document.getElementById("drawingCanvas");
   let canvas = createCanvas(1122, 787);
   canvas.parent("drawingCanvas");
-  bg = loadImage("gamebackgroundflip.png");
+  bg = loadImage("./vecteezy_gallows/gamebackgroundflip.png");
 }
 
 function draw() {
@@ -49,12 +49,12 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 let category;
 const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
 let randAnimals = animals[Math.floor(Math.random() * animals.length)];
-let gameWord = '';
+//const tapas = ["patatas", "chorizo", "tortilla", "gambas", "calamares", "pulpo"];
+//let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
+let gameWord = "";
 let guessedLetters = []; // this will store letters guessed
 let incorrectLetters = []; //this will store INCOdogRRECT letters guessed
 let missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
-
-startGame();
 
 function startGame() {
   document.getElementsByClassName("winbutton")[0].style.display = "none";  
@@ -66,25 +66,37 @@ function startGame() {
   guessedLetters = []; // this will store letters guessed
   incorrectLetters = []; //this will store INCORRECT letters guessed
   missedGuesses = 6; // head,body, arm, arm,leg, leg= 6
-  let gameWord = categorySelect();
-  //gameWord = animals[Math.floor(Math.random() * animals.length)];
+   //gameWord = animals[Math.floor(Math.random() * animals.length)];
   gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
   guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
   //this array will be used to match the letters and store them
 }
-
+  function categorySelect(category) {
+     if (category === 'animals') {
+      gameWord = randAnimals;
+      console.log("Random word from animals:", gameWord);
+      } 
+      else if (category === 'tapas') {
+      gameWord = randTapas;
+      }
+    
+     // 
+  startGame();
+  }
 
 
 document.getElementById('animalsbutton').addEventListener("click", function() 
   {
-  return categorySelect(animals);
-  })
+  categorySelect('animals');
+  });
+/*
+document.getElementById('animalsbutton').addEventListener("click", function() 
+  {
+  categorySelect(animals);
+  });
+  */ 
 
-function categorySelect(category) {
-     if (category === 'animals')
-    gameWord = randAnimals;
-  startGame();
-}
+
 
 /*
 function animalsCat() {
