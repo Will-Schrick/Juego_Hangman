@@ -37,27 +37,43 @@ function setup() {
   let canvas = createCanvas(1122, 787);
   canvas.parent("drawingCanvas");
   bg = loadImage("./vecteezy_gallows/gamebackgroundflipnogallow.jpg");
+ 
 }
 
 function draw() {
   background(bg);
   drawWordLines();
-  hangMan();
+  hangMan()
+  guessesRemainingBox();
 }
+
+function guessesRemainingBox() {
+  fill(223, 223, 223);
+  stroke(0);
+  //square(918, 220, 165, 20);
+  rect (900,250,200,250);
+  textSize(20);
+  textAlign(CENTER, CENTER);
+  text ("Tries Remaining", 1000, 275);
+  text (`${missedGuesses}`, 997, 320); 
+  text ("Letters Guessed", 1000, 400);
+  text (`${incorrectLetters}`, 997, 440); 
+ }
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 let category;
 const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken"];
-let randAnimals = animals[Math.floor(Math.random() * animals.length)];
+//let randAnimals = animals[Math.floor(Math.random() * animals.length)];
 const tapas = ["patatas", "chorizo", "tortilla", "gambas", "calamares", "pulpo"];
-let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
+//let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
 let gameWord = "";
 let guessedLetters = []; // this will store letters guessed
-let incorrectLetters = []; //this will store INCOdogRRECT letters guessed
+let incorrectLetters = []; //this will store INCORRECT letters guessed
 let missedGuesses = 9; // head,body, arm, arm,leg, leg= 6
 
 function startGame() {
   document.getElementsByClassName("winbutton")[0].style.display = "none";  
+  gameOver= false;
   //this is at the top to close the window from prior game
   //if the window is still open
   //the [0] is critical - it's like an array, we are accessing the first 
@@ -67,33 +83,38 @@ function startGame() {
   incorrectLetters = []; //this will store INCORRECT letters guessed
   missedGuesses = 9; // head,body, arm, arm,leg, leg= 6
    //gameWord = animals[Math.floor(Math.random() * animals.length)];
+  
+  if (category === "animals") {
+    gameWord = animals[Math.floor(Math.random() * animals.length)];
+    console.log("Random word from animals:", gameWord);
+    } 
+    else if (category === "tapas") {
+    gameWord = tapas[Math.floor(Math.random() * tapas.length)];;
+    }
+
   gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
   guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
   //this array will be used to match the letters and store them
 }
-  function categorySelect(category) {
-     if (category === animals) {
-      gameWord = randAnimals;
-      console.log("Random word from animals:", gameWord);
-      } 
-      else if (category === 'tapas') {
-      gameWord = randTapas;
-      }
-    
-     // 
+
+
+function categorySelect(chosenCategory) {
+  category = chosenCategory;
   startGame();
   }
 
 
+
 document.getElementById('animalsbutton').addEventListener("click", function() 
   {
-  categorySelect(animals);
+  categorySelect("animals");
   });
 
 document.getElementById('tapasbutton').addEventListener("click", function() 
   {
-  categorySelect('tapas');
+  categorySelect("tapas");
   });
+
 
 function drawWordLines() {
   const startX = 200; // Starting X position for the lines
@@ -122,6 +143,7 @@ function drawWordLines() {
 }
 
 function keyPressed() {
+  if (gameOver) return; //stops my game if this happens.  it will stop by counter
   const keylower = key.toLowerCase();
   if (alphabet.includes(keylower.toLowerCase())) {        //this compares the key against my alphabet array in lower case. Only letters allowed
     if (gameWordArray.includes(keylower)) {         // if the key is included in gameWordArray of letters then ...
@@ -188,10 +210,13 @@ function hangMan() {
    }
 }
 
+
+
 function youWin () {
 if (guessedLetters.toString() === gameWordArray.toString()) {
   document.getElementsByClassName("winbutton")[0].style.display = "flex"; 
-  
+  gameOver = true; 
+  console.log("lose test");
   }
 }
 
@@ -200,11 +225,13 @@ function youLose() {
   //console.log(document.getElementById("popuptext"));
   document.getElementById("popuptext").innerText = "You Lose! Try Again?";
   document.getElementsByClassName("winbutton")[0].style.display = "flex";
+  gameOver = true;
+  console.log("lose test");
 }
+ document.getElementById("yes").addEventListener("click", startGame);
 
 function closePopup() {
   document.getElementsByClassName("winbutton")[0].style.display = "none"; // Hide the popup
- 
-}
+ }
 
 

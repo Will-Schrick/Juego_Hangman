@@ -16,7 +16,6 @@ header {
   margin: 0px;
 }
 
-
 #copyright {
   font-style: normal;
   color: white;
@@ -37,7 +36,7 @@ header {
   display: flex;
   justify-content: center;
   background-color: #696255;
-  color: white;
+  color: rgba(223, 223, 223, 0.767);
   text-decoration: none;
   padding: 0px;
   border: 0px;
@@ -58,12 +57,13 @@ ul {
   font-size: x-large;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
-  background-color: rgb(236, 149, 68);
+  background-color: rgb(245, 159, 79);
   padding: 0px;
   margin: 0px;
   border: 0px;
@@ -75,10 +75,10 @@ p {
 }
 
 #drawingCanvas {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 
 .winbutton {
@@ -99,8 +99,8 @@ p {
   left: 0;
   width: 500px;
   height: auto;
-  opacity: .5;
-  z-index: -1; 
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .winnercontent {
@@ -108,13 +108,13 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   padding-top: 0px;
-  height: 100%; 
+  height: 100%;
   text-align: center;
   margin-top: -25px;
-  color: white; 
-  gap: 10px; 
+  color: white;
+  gap: 10px;
   padding-left: 25px;
   font-weight: bold;
   font-size: x-large;
@@ -132,27 +132,26 @@ button {
   color: #fff;
 }
 
-#yes, #no {
+#yes,
+#no {
   width: 200px;
   height: 65px;
 }
 
-
 .footer {
- display: flex;
+  display: flex;
+  flex-direction: row;
   flex: 0;
   background-color: #696255;
   color: white;
   text-decoration: none;
   font-size: large;
-  width: auto;
+  width: 100%;
   padding: 0px;
   margin: 0px;
 }
 
-
-#footerLinks{
-    color: white;
-    text-decoration: none;
+#footerLinks {
+  color: white;
+  text-decoration: none;
 }
-
