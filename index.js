@@ -53,7 +53,7 @@ function guessesRemainingBox() {
   
  
   textSize(30);
-  fill(223, 223, 223);
+  fill(215, 200, 179)
   rect(900, 250, 200, 250);
   fill(50);
   noStroke();
