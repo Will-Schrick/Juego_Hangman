@@ -17,3 +17,4 @@ Good Luck! </p>
 <li>MS Paint e imágenes</li>
 <li>Tipos de archivo .ttf y https://www.cdnfonts.com/wildwest.font</li>
 </ul>
+Finished! 
