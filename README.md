@@ -7,7 +7,7 @@
 Tendrás 9 oportunidades para adivinar la palabra. 
 Good Luck! </p>
 
-<h1>He utilizado una combinación de las siguientes herramientas:</h1>
+<h2>He utilizado una combinación de las siguientes herramientas:</h2>
 <ul>
 <li>P5.js</li>
 <li>DOM</li>
