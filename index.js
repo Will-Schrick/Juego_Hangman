@@ -1,12 +1,9 @@
 /*
-Game setup
-user gets 6 attemps - head, body, arm, arm, leg, leg
+Game setup and my notes
+user gets 9 attemps - 3 for gallows and rope, head, body, arm, arm, leg, leg
 I need to have it randomly pull a word from an array of words.
 I need to use a length for the word to draw the spaces
 Use p5 to draw spaces on the screen for the respective word
-
-
-
 
 I need an input action that checks for letters in my alphabet array and in the word chosen.
 Using INDEX I will know where the letter is and how many letters match the key pressed
@@ -17,18 +14,14 @@ const alphabet as an array -
 word split into array -'h','e','l','l','o'
 I need to count the word and draw spaces FOR EACH letter -- forEach.
 store the input letters guessed as an array & can't use again
-sore letters incorrectly guessed 
-count incorrect guesses
-
-
-
-Use will create a list of only letters from the alphabet as constans to check against
-use to.lowercase to make sure caplocks doesn't mess it up
+store letters incorrectly guessed 
+count incorrect guesses 
+create a list of only letters from the alphabet as constants to check against
+use toLowerCase to make sure caplocks doesn't mess it up
 
 Maybe,
 create a box for missed guesses as a counter
 create a box/popup for if same letter is guessed again
-
 */
 
 let bg;
@@ -50,10 +43,8 @@ function draw() {
 
 function guessesRemainingBox() {
   textFont(myFont);
-  
- 
   textSize(30);
-  fill(215, 200, 179)
+  fill(215, 200, 179);
   rect(900, 250, 200, 250);
   fill(50);
   noStroke();
@@ -66,15 +57,48 @@ function guessesRemainingBox() {
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 let category;
-const animals = ["cat", "dog", "crocodile", "bird", "mouse", "chicken", "flamingo", "giraffe", "monkey", "butterfly" ];
+const animals = [ 
+  "cat",
+  "dog",
+  "crocodile",
+  "bird",
+  "mouse",
+  "chicken",
+  "flamingo",
+  "giraffe",
+  "monkey",
+  "butterfly",
+];
 //let randAnimals = animals[Math.floor(Math.random() * animals.length)];
-const tapas = [ "patatas",  "chorizo",  "tortilla",  "gambas",   "calamares",  "pulpo", "croquetas", "jamon", "pimientos de padron"];
+const tapas = [
+  "patatas",
+  "chorizo",
+  "tortilla",
+  "gambas",
+  "calamares",
+  "pulpo",
+  "croquetas",
+  "jamon",
+];
 //let randTapas = tapas[Math.floor(Math.random() * tapas.length)];
-const cities = ["madrid", "zaragoza", "malaga", "barcelona", "cadiz", "cordoba", "granada", "sevilla", "santander", "valladolid", "barcelona", "alicante"]; 
+const cities = [
+  "madrid",
+  "zaragoza",
+  "malaga",
+  "barcelona",
+  "cadiz",
+  "cordoba",
+  "granada",
+  "sevilla",
+  "santander",
+  "valladolid",
+  "barcelona",
+  "alicante",
+];
 let gameWord = "";
 let guessedLetters = []; // this will store letters guessed
 let incorrectLetters = []; //this will store INCORRECT letters guessed
-let missedGuesses = 9; // head,body, arm, arm,leg, leg= 6
+let missedGuesses = 9; // gallows& rope = 3 + head,body, arm, arm,leg, leg= 6  = 9 total
 
 function startGame() {
   document.getElementsByClassName("winbutton")[0].style.display = "none";
@@ -84,7 +108,6 @@ function startGame() {
   guessedLetters = []; // this will store letters guessed
   incorrectLetters = []; //this will store INCORRECT letters guessed
   missedGuesses = 9; // head,body, arm, arm,leg, leg= 6
-  
 
   if (category === "animals") {
     gameWord = animals[Math.floor(Math.random() * animals.length)];
@@ -93,8 +116,7 @@ function startGame() {
     gameWord = tapas[Math.floor(Math.random() * tapas.length)];
   } else if (category === "cities") {
     gameWord = cities[Math.floor(Math.random() * cities.length)];
-    }
-  
+  }
 
   gameWordArray = gameWord.split(""); // this splits the word "Hello" into array [h,e,l,l,o]
   guessedLetters = gameWordArray.map(() => "_"); //this creates an array of 5 underscores for ['_', '_', '_', '_', '_']
@@ -114,7 +136,7 @@ document.getElementById("tapasbutton").addEventListener("click", function () {
   categorySelect("tapas");
 });
 document.getElementById("citiesbutton").addEventListener("click", function () {
-    categorySelect("cities");
+  categorySelect("cities");
 });
 
 function drawWordLines() {
@@ -125,7 +147,6 @@ function drawWordLines() {
 
   for (let i = 0; i < guessedLetters.length; i++) {
     let x = startX + i * (lineLength + lineGap); // Calculate X position for each letter line
-
     // Draw the underscore line for each letter
     stroke(0); // Line color (black)
     strokeWeight(3); // Line thickness
@@ -160,12 +181,15 @@ function keyPressed() {
       });
       console.log("Updated guessedLetters:", guessedLetters);
       youWin();
-    }
-      
-   else if (!incorrectLetters.includes(keylower)) { 
+    } else if (!incorrectLetters.includes(keylower)) {
       incorrectLetters.push(keylower); // Add letter to incorrect guesses
       missedGuesses -= 1; // Decrease attempt by 1
-      console.log("Incorrect guess:", keylower, "Missed guesses:", missedGuesses);
+      console.log(
+        "Incorrect guess:",
+        keylower,
+        "Missed guesses:",
+        missedGuesses
+      );
 
       if (missedGuesses === 0) {
         youLose();
@@ -173,7 +197,6 @@ function keyPressed() {
     }
   }
 }
-
 
 function preload() {
   myFont = loadFont("./p5font/WEST.ttf");
@@ -187,51 +210,42 @@ function hangMan() {
   fill(0);
   stroke(0);
   console.log("Drawing hangman with missedGuesses:", missedGuesses);
-  if (missedGuesses <= 8) {
-    //vertical post
+  if (missedGuesses <= 8) {   //vertical post
     image(verticalPost, 258, 157);
   }
-  if (missedGuesses <= 7) {
-    //horizontal post
+  if (missedGuesses <= 7) { //horizontal post
     image(horizontalPost, 260, 157);
   }
-  if (missedGuesses <= 6) {
-    //rope
+  if (missedGuesses <= 6) {//rope
     image(rope, 455, 157);
   }
-  if (missedGuesses <= 5) {
-    //head
+  if (missedGuesses <= 5) {//head
     circle(490, 350, 65);
   }
-  if (missedGuesses <= 4) {
-    //body
+  if (missedGuesses <= 4) { //body
     line(490, 380, 490, 500);
   }
-  if (missedGuesses <= 3) {
-    // left arm
+  if (missedGuesses <= 3) { // left arm
     line(490, 420, 450, 470);
   }
-  if (missedGuesses <= 2) {
-    // right arm
+  if (missedGuesses <= 2) { // right arm
     line(490, 420, 530, 470);
   }
-  if (missedGuesses <= 1) {
-    // left leg
+  if (missedGuesses <= 1) { // left leg
     line(490, 500, 460, 580);
   }
-  if (missedGuesses <= 0) {
-    // right leg
+  if (missedGuesses <= 0) { // right leg
     line(490, 500, 520, 580);
   }
 }
 
 function youWin() {
-  if (guessedLetters.toString() === gameWordArray.toString()) {    
-    document.getElementById("popuptext").innerText = "You Win! Great Job! Play Again?";  //  added later to fix the popup error. I kept gettint LOSE popup randomly
+  if (guessedLetters.toString() === gameWordArray.toString()) {
+    document.getElementById("popuptext").innerText =
+      "You Win! Great Job! Play Again?"; //  added later to fix the popup error. I kept gettint LOSE popup randomly
     document.getElementsByClassName("winbutton")[0].style.display = "flex";
     console.log("you won the game!");
     gameOver = true;
-    
   }
 }
 
@@ -241,6 +255,7 @@ function youLose() {
   gameOver = true;
   console.log("lose test");
 }
+
 document.getElementById("yes").addEventListener("click", startGame);
 
 function closePopup() {
