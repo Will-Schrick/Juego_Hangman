@@ -2,7 +2,7 @@
 
 <center><h1 = align = "center"> 🌵 🐃 🌵 🐎 🌵 🤠 Let's Play Hangman!🤠 🌵 🐎 🌵🐃 🌵 </h1></center>
 
-<h2>#Configuración del juego</h2>
+<h2>Configuración del Juego</h2>
 <p>El usuario puede elegir entre tres categorías para jugar.  El botón de cada categoría es una serie de palabras [«Animals» está en inglés para que practiques tu inglés. =) 🚀].   
 Tendrás 9 oportunidades para adivinar la palabra. 
 Good Luck! </p>
